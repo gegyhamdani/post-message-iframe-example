@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>THIS IS IFRAME</p>
+    <p id="received-message"></p>
+    <button onclick="sendMessageToParent()">Send Data To Parent</button>
+  </body>
+  <script>
+    function displayMessage(evt) {
+      document.getElementById("received-message").innerHTML = evt.data;
+    }
+
+    // retrieve data from parent to index.html (iframe)
+    window.addEventListener("message", displayMessage, false);
+
+    // send from index.html (iframe) to parent
+    function sendMessageToParent() {
+      window.parent.postMessage(
+        { from: "iframe-child", data: "MESSAGE FROM IFRAME" },
+        "*"
+      );
+    }
+  </script>
+</html>
